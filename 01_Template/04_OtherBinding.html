@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Document</title>
 </head>
+
 <body>
     <div id="step01">
         <h5>다중 속성 바인딩</h5>
 
         <!-- 반응형 변수(객체가 담긴)를 활용해 한번에 다양한 attribute를 세팅할 수 있다. -->
         <!-- 여기서 .value는 ref에서 값을 가져오는 .value가 아닌 변수명으로서 .value다 -->
-        <div v-bind="multiAttr">{{multiAttr.value}}</div>  
-        <button @click="fun">ref에 담긴 객체 접근</button> 
+        <div v-bind="multiAttr">{{multiAttr.value}}</div>
+        <button @click="fun">ref에 담긴 객체 접근</button>
     </div>
 
     <script>
-        const {createApp, ref } = Vue;
+        const { createApp, ref } = Vue;
 
         /* 
             ref를 쓸 때는 템플릿 영역이 아닌 곳에서는 .value를 붙여야 데이터에 접근이 가능하지만, 
@@ -25,14 +27,17 @@
             반면 reactive는 템플릿 영역이든 아니든 바로 접근이 가능하지만, 객체 형태만 관리가 가능하다.
         */
         createApp({
-            setup(){
+            setup() {
                 const multiAttr = ref({
                     id: "multiId",
                     class: "multiClass",
                     value: "multiValue"
                 });
 
-                /* template 영역이 아닌 곳에서 ref의 값을 호출할 때는 .value가 필수적 */
+                /* 
+                    template 영역이 아닌 곳에서 ref의 값을 호출할 때는 .value가 필수적 
+                    (단, setup과 같은 라이프 사이클 훅이면 this.으로 접근가능) 
+                */
                 const fun = () => {
                     console.log(multiAttr.value);
                 }
@@ -46,4 +51,5 @@
 
     </script>
 </body>
+
 </html>
